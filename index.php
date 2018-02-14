@@ -1,33 +1,27 @@
 <?php
-// VERIFICATION SI JSON EXISTE
-$fichier="todo.json"; 
-if(!file_exists("$fichier")) 
-{ 
-// S'IL N'EXISTE PAS -> CREATION
-chmod("todo.json", 0777);
-$fp=fopen("todo.json","w+");
-fclose($fp); 
-} 
- 
-if (isset($_POST['submit'])) {
-  if (isset($_POST['email'])) {
-    $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-    if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      echo $email." is a valid email address.<br/><br/>";
-    } else {
-      echo $email." is <strong>NOT</strong> a valid email address.<br/><br/>";
-    }
-  }
-
-  if (isset($_POST['page'])) {
-    $page = filter_var($_POST['page'], FILTER_SANITIZE_URL);
-    if (filter_var($page, FILTER_VALIDATE_URL)) {
-      echo $page." is a valid URL.<br/><br/>";
-    } else {
-      echo $page." is <strong>NOT</strong> a valid URL.<br/><br/>";
-    }
+// LECTURE JSON
+function lectureJSON(){ 
+  $file = file_get_contents("todo.json");
+  $arrayAFairePHP = json_decode($file, true);
+  foreach ($arrayAFairePHP["afaire"] as $aFaire){
+    echo $aFaire."<br>";
   }
 }
+// AJOUT DANS JSON
+//function ajoutJSON(){ 
+  if(isset($_POST["tache"])) {
+    echo $_POST["tache"]."<br>";
+    $tacheAjout = htmlspecialchars($_POST["tache"]);
+    $file = file_get_contents('todo.json');  
+    $arrayAjoutPHP = json_decode($file, true); 
+    $arrayAjoutPHP[] = $tacheAjout;  
+    $finalAjout = json_encode($arrayAjoutPHP);  
+    if(file_put_contents('todo.json', $finalAjout))  
+    {  
+      echo "Ajout réussit ;-)";  
+    }   
+  }
+//}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,24 +36,18 @@ if (isset($_POST['submit'])) {
     <header>
       <h2>Liste des taches, youpeee ;-)</h2>
     </header>
+    
     <div class="row">
       <div class="col_fin centre">
-        <p></p>
+        <p><?php lectureJSON(); ?></p>
       </div>
-      <!--
-<h4>Nettoyage et vérification</h4>
-<p><br>FILTER_SANITIZE_EMAIL - FILTER_SANITIZE_URL</p>
--->
     </div>
 
     <div class="row">
       <div class="col_fin centre">
-        <form name="form" method="post" action="formulaire.php">
-          Email Address: <br/>
-          <input type="text" name="email" value="<?php if (isset($_POST['submit'])) { echo $_POST['email']; } ?>" size="50"/> <br/><br/>
-          Home Page: <br/>
-          <input type="text" name="page" value="<?php if (isset($_POST['submit'])) { echo $_POST['page']; } ?>" size="50" /> <br/>
-          <br/>
+        <form name="form" method="post" action="">
+          Ajouter une tache: <br/>
+          <input type="text" name="tache" size="50"/> <br/><br/>
           <input type="submit" name="submit"/>
         </form>
       </div>
@@ -71,7 +59,8 @@ if (isset($_POST['submit'])) {
     <div class="row">
       <p><a href="https://github.com/becodeorg/Swartz-promo-3/blob/master/Parcours/06-PHP/php-formulaires.md" target="_blank">Formulaire: Sanitisation et Validation</a>
       </p>
-    </div>    <div class="row">
+    </div>    
+    <div class="row">
     <p><a href="https://github.com/becodeorg/Swartz-promo-3/blob/master/Parcours/06-PHP/Manipulation_fichier_php.md" target="_blank">Manipulation de fichiers</a>
     </p>
     </div>

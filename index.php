@@ -3,8 +3,13 @@
 function lectureJSON(){ 
   $file = file_get_contents("todo.json");
   $arrayAFairePHP = json_decode($file, true);
-  foreach ($arrayAFairePHP["afaire"] as $aFaire){
-    echo $aFaire."<br>";
+  $i = 0;
+  foreach ($arrayAFairePHP as $aFaire){
+    $aFaireExplode = explode("AFAIRE:", $aFaire);
+    if (stripos($aFaire, 'AFAIRE:') !== false){
+    echo '<input id="'.$i.'" type="checkbox"> '.$aFaireExplode[1]."<br>";
+    }
+    $i++;
   }
 }
 // AJOUT DANS JSON
@@ -14,7 +19,7 @@ function lectureJSON(){
     $tacheAjout = htmlspecialchars($_POST["tache"]);
     $file = file_get_contents('todo.json');  
     $arrayAjoutPHP = json_decode($file, true); 
-    $arrayAjoutPHP[] = $tacheAjout;  
+    $arrayAjoutPHP[] = "AFAIRE:".$tacheAjout;  
     $finalAjout = json_encode($arrayAjoutPHP);  
     if(file_put_contents('todo.json', $finalAjout))  
     {  

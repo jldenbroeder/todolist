@@ -76,13 +76,7 @@ header, footer{
 .col_75 {
   width: 75%;
   padding: 10px;
-  display: -webkit-box;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  display: flex;
-  flex-direction: row;
-  -ms-flex-direction: row;
+
 
 }
 .col_fin {

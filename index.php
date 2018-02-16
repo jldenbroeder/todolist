@@ -7,7 +7,8 @@ function lectureAfaireJSON(){
   foreach ($arrayAFairePHP as $aFaire){
     $aFaireExplode = explode("AFAIRE:", $aFaire);
     if (stripos($aFaire, 'AFAIRE:') !== false){
-      echo '<input id="'.$i.'" name="'.$i.'" type="checkbox"> '.$aFaireExplode[1]."<br>";
+      echo '<input id="'.$i.'" name="'.$i.'" type="checkbox" />'.$aFaireExplode[1]."<br>";
+      // <label for="test1">Red</label>
     }
     $i++;
   }
@@ -17,13 +18,15 @@ function lectureArchiveJSON(){
   $file = file_get_contents("todo.json");
   $arrayArchivePHP = json_decode($file, true);
   $i = 0;
+  echo "<p>";
   foreach ($arrayArchivePHP as $archive){
     $archiveExplode = explode("ARCHIVE:", $archive);
     if (stripos($archive, 'ARCHIVE:') !== false){
-      echo '<input id="'.$i.'" type="checkbox" checked> '.$archiveExplode[1]."<br>";
+      echo '<input id="'.$i.'" type="checkbox" checked="checked"  disabled="disabled" /><span class="texte-archive">'.$archiveExplode[1]."</span><br>";
     }
     $i++;
   }
+  echo "</p>";
 }
 // AJOUT DANS JSON
 if( (isset($_POST["submit-ajout"])) && (isset($_POST["tache"])) && (!empty($_POST["tache"])) ) {

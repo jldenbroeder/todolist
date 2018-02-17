@@ -8,7 +8,6 @@ function lectureAfaireJSON(){
     $aFaireExplode = explode("AFAIRE:", $aFaire);
     if (stripos($aFaire, 'AFAIRE:') !== false){
       echo '<input id="'.$i.'" name="'.$i.'" type="checkbox" />'.$aFaireExplode[1]."<br>";
-      // <label for="test1">Red</label>
     }
     $i++;
   }
@@ -66,7 +65,7 @@ if( (isset($_POST["submit-modif"])) ) {
   </head>
   <body>
     <header>
-      <h2>Liste des taches, youpeee ;-)</h2>
+      <h2>Liste des tâches, youpeee ;-)</h2>
     </header>
     <!-- LECTURE JSON DES TACHES A FAIRE -->
     <div class="row">

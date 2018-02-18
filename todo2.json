@@ -1,1 +1,1 @@
-{"afaire":{"1":"tache1","3":"tache3","4":{"6":"tache6"}},"archive":{"4":"tache4","5":"tache5"}}
+{"afaire":["tache1","tache3","tache6"],"archive":["tache4","tache5"]}

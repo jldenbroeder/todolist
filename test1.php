@@ -1,24 +1,41 @@
 <?php
-$myObj = array(
-    "afaire" => array(
+$myObj = [
+    "afaire" => [
     
-      "1" => "tache1",
-      "2" => "tache2",
-      "3" => "tache3"
-    ),
-    "archive" => array(
-      "4" => "tache4",
-      "5" => "tache5"
-    )
-);
+      "tache1",
+      "tache2",
+      "tache3"
+    ],
+    "archive" => [
+      "tache4",
+      "tache5"
+    ]
+];
 //$myObj = array("1" => "tache1");
-var_dump($myObj);
-var_dump($myObj["afaire"])."<br />";
-var_dump($myObj["archive"])."<br />"; 
-
-unset($myObj["afaire"]["2"]);
-array_push($myObj["afaire"], ["6" => "tache6"]);
-
+print_r($myObj);
+echo "<br />";
+print_r($myObj["afaire"]);
+echo "<br />";
+print_r($myObj["archive"]);
+echo "<br />";
+// SUPPRESSION
+unset($myObj["afaire"][1]); // SUPPRESSION DE LA TACHE2
+echo "la tâche2 a été supprimée"."<br />";
+// REINDEXATION
+$myObj["afaire"] = array_values($myObj["afaire"]);
+print_r($myObj["afaire"]);
+echo "<br />";
+// AJOUT DANS LE TABLEAU "AFAIRE"
+$myObj["afaire"][] = "tache6";
+echo "la tâche6 a été ajoutée dans \"aFaire\""."<br />";
+// REINDEXATION
+//$myObj["afaire"] = array_values($myObj["afaire"]);
+print_r($myObj["afaire"]);
+echo "<br />";
+// REINDEXATION
+$myObj["archive"] = array_values($myObj["archive"]);
+print_r($myObj["archive"]);
+echo "<br />";
   $finalAjout = json_encode($myObj);  
   file_put_contents('todo2.json', $finalAjout);
 ?>

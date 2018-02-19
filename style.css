@@ -99,7 +99,7 @@ header, footer{
 }
 
 h5 {
-text-decoration: underline;
+  text-decoration: underline;
 }
 
 .afaire {
@@ -108,7 +108,7 @@ text-decoration: underline;
 
 
 .done{
-height: 100px;
+  height: 100px;
 }
 
 .archived{
@@ -126,11 +126,11 @@ height: 100px;
 }
 
 .bouton_submit {
- background-color: #DDDDDD;
- padding: 7px;
- color: black;
- border: 1px solid #666666;
- border-radius: 2px;
+  background-color: #DDDDDD;
+  padding: 7px;
+  color: black;
+  border: 1px solid #666666;
+  border-radius: 2px;
 }
 
 .centre{

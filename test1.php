@@ -6,7 +6,7 @@ $myObj = json_decode($file, true);
 // AJOUT TACHE
 if ( (isset($_POST["tache"])) && (isset($_POST["submit-ajout"])) && (!empty($_POST["tache"])) ){
   $tacheAjout = htmlspecialchars($_POST["tache"]);
-$myObj['aFaire'][] = $tacheAjout;
+  $myObj['aFaire'][] = $tacheAjout;
   $finalAjout = json_encode($myObj);
   file_put_contents('todo2.json', $finalAjout);
 }
@@ -15,18 +15,18 @@ $myObj['aFaire'][] = $tacheAjout;
 if (isset($_POST["submit-modif"])){
   $i = 0;
   foreach ($myObj["aFaire"] as $value) {
-   if (isset($_POST[$i])){
-     $myObj["archive"][] = $myObj['aFaire'][$i];
-     unset($myObj["aFaire"][$i]);
-     // var_dump ($listTable);
-   }
-   $i++;
+    if (isset($_POST[$i])){
+      $myObj["archive"][] = $myObj['aFaire'][$i];
+      unset($myObj["aFaire"][$i]);
+      // var_dump ($listTable);
+    }
+    $i++;
   }
   $myObj["aFaire"] = array_values($myObj["aFaire"]);
 }
 
-  $finalAjout = json_encode($myObj);
-  file_put_contents('todo2.json', $finalAjout);
+$finalAjout = json_encode($myObj);
+file_put_contents('todo2.json', $finalAjout);
 
 ?>
 
@@ -48,35 +48,34 @@ if (isset($_POST["submit-modif"])){
       <div class="col_75">
         <form name="form-modif" method="post" action="">
 
-          <p>
-            <h5> A FAIRE:</h5>
-             <div class="afaire">
-               <?php
-                    $i = 0;
-                    foreach ($myObj["aFaire"] as $value) {
-                    ?>
-                      <input name=<?php echo $i; ?> type="checkbox">  <?php echo $value ?> <br />
-                    <?php
-                    $i++;
-                    }
-                ?>
-              </div>
-          </p>
+          <h5> A FAIRE:</h5>
+          <div class="afaire">
+            <?php
+            $i = 0;
+            foreach ($myObj["aFaire"] as $value) {
+            ?>
+            <input name="<?php echo $i; ?>" type="checkbox">  <?php echo $value ?> <br />
+            <?php
+              $i++;
+            }
+            ?>
+          </div>
 
-          <input type="submit" name="submit-modif" class="bouton_submit" value="Enregistrer"/>
-          <!--AFFICHE ARCHIVE  -->
-          <h5> ARCHIVE:</h5>
+        <input type="submit" name="submit-modif" class="bouton_submit" value="Enregistrer"/>
+        <!--AFFICHE ARCHIVE  -->
+        <h5> ARCHIVE:</h5>
         <div class="done">
           <span class="archived">
-           <?php
-                foreach ($myObj["archive"] as $value) {
-            ?>
-              <input type="checkbox" checked="checked" disabled="disabled" class="archived"> <?php echo $value ?> <br>
             <?php
-                }
+            foreach ($myObj["archive"] as $value) {
             ?>
-      </div>
-        </form>
+            <input type="checkbox" checked="checked" disabled="disabled" class="archived"> <?php echo $value ?> <br />
+            <?php
+            }
+            ?>
+          </span>
+            </div>
+          </form>
       </div>
     </div>
     <!-- FORMULAIRE D'AJOUT DE TACHE -->

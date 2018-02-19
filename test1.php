@@ -1,49 +1,35 @@
 <?php
-//$myObj = [
-//    "afaire" => [
-//      "tache1",
-//      "tache2",
-//      "tache3",
-//      "tache4",
-//      "tache5"
-//    ],
-//    "archive" => [
-//    ]
-//];
-//$myObj = array("1" => "tache1");
-print_r($myObj);
-echo "<br />";
-print_r($myObj["afaire"]);
-echo "<br />";
-print_r($myObj["archive"]);
-echo "<br />";
-// SUPPRESSION
-//$myObj["archive"][] = $myObj["afaire"][0];
-//unset($myObj["afaire"][0]); // SUPPRESSION DE LA TACHE
-//$myObj["archive"][] = $myObj["afaire"][2];
-//unset($myObj["afaire"][2]); // SUPPRESSION DE LA TACHE
-echo "la tâche2 a été supprimée"."<br />";
-// REINDEXATION
-//$myObj["afaire"] = array_values($myObj["afaire"]);
-print_r($myObj["afaire"]);
-echo "<br />";
-// AJOUT DANS LE TABLEAU "AFAIRE"
-$myObj["afaire"][] = "tache1";
-//$myObj["afaire"][] = "tache2";
-//$myObj["archive"][] = $myObj["afaire"][0];
-//unset($myObj["afaire"][0]); // SUPPRESSION DE LA TACHE
-echo "la tâche6 a été ajoutée dans \"aFaire\""."<br />";
-// REINDEXATION
-$myObj["afaire"] = array_values($myObj["afaire"]);
-print_r($myObj["afaire"]);
-echo "<br />";
-// REINDEXATION
-$myObj["archive"] = array_values($myObj["archive"]);
-print_r($myObj["archive"]);
-echo "<br />";
-  $finalAjout = json_encode($myObj);  
+/* Récupération du contenu du fichier .json */
+$file = file_get_contents("todo2.json");
+$myObj = json_decode($file, true);
+
+// AJOUT TACHE
+if ( (isset($_POST["tache"])) && (isset($_POST["submit-ajout"])) && (!empty($_POST["tache"])) ){
+  $tacheAjout = htmlspecialchars($_POST["tache"]);
+$myObj['aFaire'][] = $tacheAjout;
+  $finalAjout = json_encode($myObj);
+  file_put_contents('todo.json', $finalAjout);
+}
+
+//TACHE EFFECTUE
+if (isset($_POST["submit-modif"])){
+  $i = 0;
+  foreach ($myObj["aFaire"] as $value) {
+   if (isset($_POST[$i])){
+     $myObj["archive"][] = $myObj['aFaire'][$i];
+     unset($myObj["aFaire"][$i]);
+     // var_dump ($listTable);
+   }
+   $i++;
+  }
+  $myObj["aFaire"] = array_values($myObj["aFaire"]);
+}
+
+  $finalAjout = json_encode($myObj);
   file_put_contents('todo2.json', $finalAjout);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -61,8 +47,29 @@ echo "<br />";
     <div class="row">
       <div class="col_75">
         <form name="form-modif" method="post" action="">
-          <p></p>
+          <p>
+            <h5> A FAIRE</h5>
+             <?php
+                  $i = 0;
+                  foreach ($myObj["aFaire"] as $value) {
+                  ?>
+                    <input name=<?php echo $i; ?> type="checkbox">  <?php echo $value ?> <br />
+                  <?php
+                  $i++;
+                  }
+              ?>
+          </p>
           <input type="submit" name="submit-modif" value="Enregistrer"/>
+          <!--AFFICHE ARCHIVE  -->
+          <h5> ARCHIVE</h5>
+          <span class="archived">
+     <?php
+          foreach ($myObj["archive"] as $value) {
+      ?>
+        <input type="checkbox" checked="checked"> <?php echo $value ?> <br>
+      <?php
+          }
+      ?>
         </form>
       </div>
     </div>
@@ -95,7 +102,7 @@ echo "<br />";
       </div>
     </div>
     <div class="row">
-    </div>    
+    </div>
     <footer>
       <h2>Olivier & Jean Luc :D, BeCode.org</h2>
     </footer>

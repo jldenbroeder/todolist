@@ -1,16 +1,15 @@
 <?php
-$myObj = [
-    "afaire" => [
-    
-      "tache1",
-      "tache2",
-      "tache3"
-    ],
-    "archive" => [
-      "tache4",
-      "tache5"
-    ]
-];
+//$myObj = [
+//    "afaire" => [
+//      "tache1",
+//      "tache2",
+//      "tache3",
+//      "tache4",
+//      "tache5"
+//    ],
+//    "archive" => [
+//    ]
+//];
 //$myObj = array("1" => "tache1");
 print_r($myObj);
 echo "<br />";
@@ -19,17 +18,23 @@ echo "<br />";
 print_r($myObj["archive"]);
 echo "<br />";
 // SUPPRESSION
-unset($myObj["afaire"][1]); // SUPPRESSION DE LA TACHE2
+//$myObj["archive"][] = $myObj["afaire"][0];
+//unset($myObj["afaire"][0]); // SUPPRESSION DE LA TACHE
+//$myObj["archive"][] = $myObj["afaire"][2];
+//unset($myObj["afaire"][2]); // SUPPRESSION DE LA TACHE
 echo "la tâche2 a été supprimée"."<br />";
 // REINDEXATION
-$myObj["afaire"] = array_values($myObj["afaire"]);
+//$myObj["afaire"] = array_values($myObj["afaire"]);
 print_r($myObj["afaire"]);
 echo "<br />";
 // AJOUT DANS LE TABLEAU "AFAIRE"
-$myObj["afaire"][] = "tache6";
+$myObj["afaire"][] = "tache1";
+//$myObj["afaire"][] = "tache2";
+//$myObj["archive"][] = $myObj["afaire"][0];
+//unset($myObj["afaire"][0]); // SUPPRESSION DE LA TACHE
 echo "la tâche6 a été ajoutée dans \"aFaire\""."<br />";
 // REINDEXATION
-//$myObj["afaire"] = array_values($myObj["afaire"]);
+$myObj["afaire"] = array_values($myObj["afaire"]);
 print_r($myObj["afaire"]);
 echo "<br />";
 // REINDEXATION

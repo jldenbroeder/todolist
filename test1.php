@@ -8,7 +8,7 @@ if ( (isset($_POST["tache"])) && (isset($_POST["submit-ajout"])) && (!empty($_PO
   $tacheAjout = htmlspecialchars($_POST["tache"]);
 $myObj['aFaire'][] = $tacheAjout;
   $finalAjout = json_encode($myObj);
-  file_put_contents('todo.json', $finalAjout);
+  file_put_contents('todo2.json', $finalAjout);
 }
 
 //TACHE EFFECTUE
@@ -47,29 +47,35 @@ if (isset($_POST["submit-modif"])){
     <div class="row">
       <div class="col_75">
         <form name="form-modif" method="post" action="">
+
           <p>
-            <h5> A FAIRE</h5>
-             <?php
-                  $i = 0;
-                  foreach ($myObj["aFaire"] as $value) {
-                  ?>
-                    <input name=<?php echo $i; ?> type="checkbox">  <?php echo $value ?> <br />
-                  <?php
-                  $i++;
-                  }
-              ?>
+            <h5> A FAIRE:</h5>
+             <div class="afaire">
+               <?php
+                    $i = 0;
+                    foreach ($myObj["aFaire"] as $value) {
+                    ?>
+                      <input name=<?php echo $i; ?> type="checkbox">  <?php echo $value ?> <br />
+                    <?php
+                    $i++;
+                    }
+                ?>
+              </div>
           </p>
-          <input type="submit" name="submit-modif" value="Enregistrer"/>
+
+          <input type="submit" name="submit-modif" class="bouton_submit" value="Enregistrer"/>
           <!--AFFICHE ARCHIVE  -->
-          <h5> ARCHIVE</h5>
+          <h5> ARCHIVE:</h5>
+        <div class="done">
           <span class="archived">
-     <?php
-          foreach ($myObj["archive"] as $value) {
-      ?>
-        <input type="checkbox" checked="checked"> <?php echo $value ?> <br>
-      <?php
-          }
-      ?>
+           <?php
+                foreach ($myObj["archive"] as $value) {
+            ?>
+              <input type="checkbox" checked="checked" disabled="disabled" class="archived"> <?php echo $value ?> <br>
+            <?php
+                }
+            ?>
+      </div>
         </form>
       </div>
     </div>
@@ -78,8 +84,8 @@ if (isset($_POST["submit-modif"])){
       <div class="col_75">
         <form name="form-ajout" method="post" action="">
           Ajouter une tache: <br/>
-          <input type="text" name="tache" size="50"/> <br/>
-          <input type="submit" name="submit-ajout" value="Ajouter"/>
+          <input type="text" name="tache" class="fillcase" size="30"/>
+          <input type="submit" name="submit-ajout" class="bouton_submit" value="Ajouter"/>
         </form>
       </div>
     </div>
